@@ -1,0 +1,32 @@
+@import './assets/font/iconfont.css';
+@import './styles/color';
+
+view {
+  box-sizing: border-box;
+}
+
+.safe-bottom{
+  padding-bottom: constant(safe-area-inset-bottom); /* 兼容 iOS < 11.2 */
+  padding-bottom: env(safe-area-inset-bottom); /* 兼容 iOS >= 11.2 */
+}
+
+.pos-r {
+  position: relative;
+}
+
+.border-b {
+  border-bottom: 1px solid #ddd;
+}
+
+.txt-center{
+  text-align: center;
+}
+
+/* 字体 20-50 如：fz20,fz22,fz24 */
+.fz(80);
+.fz(@n, @i: 20) when (@i =< @n) {
+  .fz@{i} {
+    font-size: @i*1px;
+  }
+  .fz(@n, @i + 2);
+}

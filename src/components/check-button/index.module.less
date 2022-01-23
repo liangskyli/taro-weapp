@@ -1,0 +1,40 @@
+.check-button {
+
+  .css-icon-check-bg {
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+  }
+
+  .css-icon-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border: 2px solid #e23;
+    border-radius: 50%;
+
+    &::before {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 32px;
+      height: 32px;
+      background: #e23;
+      border-radius: 50%;
+      content: '';
+    }
+
+    .css-icon-check-white {
+      z-index: 1;
+    }
+  }
+
+  .hide {
+    display: none;
+  }
+}
