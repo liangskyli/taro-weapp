@@ -1,6 +1,5 @@
-//import { act } from '@testing-library/react';
 import { createApi } from '@/utils/request';
-import { EnvMap, HostMap } from '@/config';
+import { EnvEnumMap, HostEnumMap, HostMap } from '@/config';
 
 (global as any).jestRequestOptions = '';
 jest.mock('@tarojs/taro', () => {
@@ -45,19 +44,18 @@ jest.mock('@/store', () => {
 });
 
 describe('测试 utils/request ', () => {
-  beforeEach(() => {
-    jest.clearAllTimers();
-  });
-
   test('createApi方法', async () => {
-    jest.useFakeTimers();
-    //const mock = jest.fn();
     const IndexApi = createApi(
       {
         getList: {
           url: '/get-list',
           method: 'GET',
-          customOption: { showError: true, showLoading: true, envEnum: '0' },
+          customOption: {
+            showError: true,
+            showLoading: true,
+            envEnum: 'dev',
+            routePrefix: '/api2',
+          },
         },
         getList2: {
           url: 'http://test.com/get-list2',
@@ -73,7 +71,7 @@ describe('测试 utils/request ', () => {
       params: { id: 'id1' },
     });
     expect((global as any).jestRequestOptions).toEqual({
-      url: `${HostMap[EnvMap.dev]}/api/get-list?id=id1`,
+      url: `${HostMap[HostEnumMap.default][EnvEnumMap.dev]}/api2/get-list?id=id1`,
       method: 'GET',
       header: {},
       data: {},
@@ -99,7 +97,7 @@ describe('测试 utils/request ', () => {
       result3 = error;
     });
     expect((global as any).jestRequestOptions).toEqual({
-      url: `${HostMap[EnvMap.prod]}/api/save-data?id=id3`,
+      url: `${HostMap[HostEnumMap.default][EnvEnumMap.prod]}/api/save-data?id=id3`,
       method: 'POST',
       header: {},
       data: { data1: 'data1' },
@@ -110,7 +108,7 @@ describe('测试 utils/request ', () => {
       getList: {
         url: '/get-list',
         method: 'GET',
-        customOption: { showError: true, showLoading: true, envEnum: '0' },
+        customOption: { showError: true, showLoading: true, envEnum: 'dev', hostEnumType: 'host2' },
       },
       getList2: {
         url: 'http://test.com/get-list2',
@@ -127,7 +125,7 @@ describe('测试 utils/request ', () => {
       result4 = error;
     });
     expect((global as any).jestRequestOptions).toEqual({
-      url: `${HostMap[EnvMap.dev]}/get-list?id=id4`,
+      url: `${HostMap[HostEnumMap.host2][EnvEnumMap.dev]}/get-list?id=id4`,
       method: 'GET',
       header: {},
       data: {},
@@ -141,7 +139,7 @@ describe('测试 utils/request ', () => {
       result5 = error;
     });
     expect((global as any).jestRequestOptions).toEqual({
-      url: `${HostMap[EnvMap.dev]}/get-list?id=id5`,
+      url: `${HostMap[HostEnumMap.default][EnvEnumMap.dev]}/get-list?id=id5`,
       method: 'GET',
       header: {},
       data: {},

@@ -1,21 +1,30 @@
-export const EnvMap = {
+export const EnvEnumMap = {
   dev: 'dev',
   test: 'test',
   release: 'release',
   prod: 'prod',
 };
 
-export const EnvEnum = {
-  '0': EnvMap.dev,
-  '1': EnvMap.test,
-  '2': EnvMap.release,
-  '3': EnvMap.prod,
+export type EnvEnumType = keyof typeof EnvEnumMap;
+
+export const HostEnumMap = {
+  default: 'default',
+  host2: 'host2',
 };
-export type EnvEnumType = keyof typeof EnvEnum;
+
+export type HostEnumType = keyof typeof HostEnumMap;
 
 export const HostMap = {
-  [EnvMap.dev]: 'http://0.0.0.0:8001',
-  [EnvMap.test]: 'https://test.example.cn',
-  [EnvMap.release]: 'https://beta.example.cn',
-  [EnvMap.prod]: 'https://prod.example.cn',
+  [HostEnumMap.default]: {
+    [EnvEnumMap.dev]: 'http://0.0.0.0:8001',
+    [EnvEnumMap.test]: 'https://test.example.cn',
+    [EnvEnumMap.release]: 'https://beta.example.cn',
+    [EnvEnumMap.prod]: 'https://prod.example.cn',
+  },
+  [HostEnumMap.host2]: {
+    [EnvEnumMap.dev]: 'http://0.0.0.0:8001',
+    [EnvEnumMap.test]: 'https://test2.example.cn',
+    [EnvEnumMap.release]: 'https://beta2.example.cn',
+    [EnvEnumMap.prod]: 'https://prod2.example.cn',
+  },
 };

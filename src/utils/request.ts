@@ -1,19 +1,17 @@
-import type { EnvEnumType } from '@/config';
-import { EnvEnum, EnvMap, HostMap } from '@/config';
+import type { EnvEnumType, HostEnumType } from '@/config';
+import { EnvEnumMap, HostMap } from '@/config';
 import store from '@/store';
 import type Taro from '@tarojs/taro';
 import { hideLoading, request as taroRequest, showLoading, showModal } from '@tarojs/taro';
 import { addUrlParams } from './common';
 
 /**请求全路径，默认获取全局环境设置 */
-function getFullUrl(
-  url: string,
-  routePrefix: string,
-  envEnum: EnvEnumType = store.getState().global.envEnum,
-): string {
+function getFullUrl(url: string, routePrefix: string, customOption?: CustomRequestOption): string {
+  const { envEnum = store.getState().global.envEnum as EnvEnumType, hostEnumType = 'default' } =
+    customOption ?? {};
   if (/^(http[s]?:\/\/)/.test(url)) return url;
-  const envKey = EnvEnum[envEnum];
-  const baseUrl = HostMap[envKey] || HostMap[EnvMap.prod];
+  const envKey = EnvEnumMap[envEnum];
+  const baseUrl = HostMap[hostEnumType][envKey] || HostMap[hostEnumType][EnvEnumMap.prod];
   const result = `${baseUrl}${routePrefix}${url}`;
   return result;
 }
@@ -30,23 +28,33 @@ const getCommonParams = () => {
   };
 };
 
+type CreateApiOptions = {
+  /** url路由前缀,当url含有http全路径时忽略该配置 */
+  routePrefix?: string;
+};
+
 type RequestOption = Taro.request.Option;
 
 type CustomRequestOption = {
   /** 接口地址环境，默认从store中获取 */
   envEnum?: EnvEnumType;
+  /** 接口地址类型 */
+  hostEnumType?: HostEnumType;
   /** 是否显示错误提示，默认显示 */
   showError?: boolean;
   /** 是否显示加载提示，默认不显示 */
   showLoading?: boolean;
-};
+} & CreateApiOptions;
 
 const isWxMsg = (msg) => `${msg}`.indexOf('request:') === 0 || `${msg}`.indexOf('wx:') === 0;
 
 const request = (opts: RequestOption, routePrefix: string, customOption?: CustomRequestOption) => {
+  if (customOption?.routePrefix) {
+    routePrefix = customOption.routePrefix;
+  }
   const options: RequestOption = {
     ...opts,
-    url: getFullUrl(opts.url, routePrefix, customOption?.envEnum),
+    url: getFullUrl(opts.url, routePrefix, customOption),
     method: (opts.method || 'GET').toUpperCase() as keyof Taro.request.method,
     header: { ...getCommonHeader(), ...opts.header },
     data: { ...getCommonParams(), ...opts.data },
@@ -92,10 +100,6 @@ type CustomConfig = {
   params?: Record<string, string>;
   /** 自定义参数 */
   customOption?: CustomRequestOption;
-};
-type CreateApiOptions = {
-  /** url路由前缀 */
-  routePrefix?: string;
 };
 
 export type CreateApiJsonData<T = any> = {

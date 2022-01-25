@@ -4,13 +4,12 @@ import { View } from '@tarojs/components';
 import { useDispatch, useSelector } from 'react-redux';
 import type { SidePopUpProps } from '@/components/side-pop-up';
 import SidePopUp from '@/components/side-pop-up';
-import { EnvEnum } from '@/config';
 
 const envOptions: SidePopUpProps<EnvEnumType>['list'] = [
-  { name: '开发环境', id: '0' },
-  { name: '测试环境', id: '1' },
-  { name: '预发布环境', id: '2' },
-  { name: '生产环境', id: '3' },
+  { name: '开发环境', id: 'dev' },
+  { name: '测试环境', id: 'test' },
+  { name: '预发布环境', id: 'release' },
+  { name: '生产环境', id: 'prod' },
 ];
 
 interface PropsType {
@@ -22,7 +21,7 @@ const ChangeEnv = (props: PropsType) => {
 
   const { envEnum } = useSelector((state: any) => state.global);
 
-  const [selectedId, setSelectedId] = useState(envEnum);
+  const [selectedId, setSelectedId] = useState<EnvEnumType>(envEnum);
 
   const dispatch = useDispatch();
   const onClickEnv = (value) => {
@@ -40,9 +39,7 @@ const ChangeEnv = (props: PropsType) => {
 
   return (
     <>
-      {EnvEnum[selectedId] !== 'prod' && (
-        <View className="txt-center">接口环境：{EnvEnum[selectedId]}</View>
-      )}
+      {selectedId !== 'prod' && <View className="txt-center">接口环境：{selectedId}</View>}
       <SidePopUp<string>
         title="请选择环境"
         isOpen={isOpen}

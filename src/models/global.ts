@@ -18,7 +18,7 @@ export type GlobalModelType = {
 };
 
 const initState: GlobalModelState = {
-  envEnum: '0',
+  envEnum: 'dev',
 };
 
 const GlobalModel: GlobalModelType = {
