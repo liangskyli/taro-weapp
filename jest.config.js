@@ -32,4 +32,12 @@ module.exports = {
     '@tarojs/taro': '@tarojs/taro-h5',
     '@tarojs/components': '@tarojs/components/dist-h5/react',
   },
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: 80,
+    },
+  },
 };

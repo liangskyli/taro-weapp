@@ -40,6 +40,7 @@
     "dev:jd": "npm run build:jd -- --watch",
     "dev:quickapp": "npm run build:quickapp -- --watch",
     "test": "jest",
+    "ci": "jest --bail --silent",
     "update:deps": "yarn upgrade-interactive --latest"
   },
   "browserslist": [
