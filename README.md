@@ -25,6 +25,12 @@ yarn
 yarn dev:weapp
 ```
 
+## mock服务
+
+```bash
+yarn mock
+```
+
 ## 打包项目
 
 ```bash
@@ -47,6 +53,7 @@ yarn build:weapp
     │   ├── dev.js                  // 开发时配置
     │   ├── index.js                // 默认配置
     │   └── prod.js                 // 打包时配置
+    ├── mock/                       // mock目录
     ├── src/                        // 源码目录
     │   ├── assets/                 // 资源文件
     │   ├── components/             // 公共组件

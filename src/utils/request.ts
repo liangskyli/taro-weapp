@@ -6,11 +6,15 @@ import { hideLoading, request as taroRequest, showLoading, showModal } from '@ta
 import { addUrlParams } from './common';
 
 /**请求全路径，默认获取全局环境设置 */
-function getFullUrl(url: string, envEnum: EnvEnumType = store.getState().global.envEnum): string {
+function getFullUrl(
+  url: string,
+  routePrefix: string,
+  envEnum: EnvEnumType = store.getState().global.envEnum,
+): string {
   if (/^(http[s]?:\/\/)/.test(url)) return url;
   const envKey = EnvEnum[envEnum];
   const baseUrl = HostMap[envKey] || HostMap[EnvMap.prod];
-  const result = `${baseUrl}${url}`;
+  const result = `${baseUrl}${routePrefix}${url}`;
   return result;
 }
 
@@ -39,10 +43,10 @@ type CustomRequestOption = {
 
 const isWxMsg = (msg) => `${msg}`.indexOf('request:') === 0 || `${msg}`.indexOf('wx:') === 0;
 
-const request = (opts: RequestOption, customOption?: CustomRequestOption) => {
+const request = (opts: RequestOption, routePrefix: string, customOption?: CustomRequestOption) => {
   const options: RequestOption = {
     ...opts,
-    url: getFullUrl(opts.url, customOption?.envEnum),
+    url: getFullUrl(opts.url, routePrefix, customOption?.envEnum),
     method: (opts.method || 'GET').toUpperCase() as keyof Taro.request.method,
     header: { ...getCommonHeader(), ...opts.header },
     data: { ...getCommonParams(), ...opts.data },
@@ -61,10 +65,13 @@ const request = (opts: RequestOption, customOption?: CustomRequestOption) => {
           return res.data;
         }
       }
-      return Promise.reject(res.data);
+      return Promise.reject(res?.data);
     })
     .catch((err) => {
-      let retMsg = err?.retMsg || err?.errMsg || '系统繁忙，请稍后再试';
+      if (!err) {
+        err = { retCode: -1 };
+      }
+      let retMsg = err.retMsg || err.errMsg || '系统繁忙，请稍后再试';
       if (isWxMsg(retMsg)) {
         retMsg = '亲，您的网络正在开小差~';
       }
@@ -72,6 +79,7 @@ const request = (opts: RequestOption, customOption?: CustomRequestOption) => {
       if (showError) {
         showModal({ title: retMsg, showCancel: false });
       }
+      err.retMsg = retMsg;
       return Promise.reject(err);
     })
     .finally(() => {
@@ -103,7 +111,7 @@ const createApi = <T extends string>(
   type ConfigType = RequestOption & CustomConfig;
   const api = {} as Record<
     keyof typeof config,
-    (config?: ConfigType) => Promise<CreateApiJsonData>
+    (config?: Partial<ConfigType>) => Promise<CreateApiJsonData>
   >;
   Object.entries(config).forEach(([methodName, methodConfig]) => {
     api[methodName as keyof typeof config] = (payload) => {
@@ -113,7 +121,6 @@ const createApi = <T extends string>(
       };
       const { routePrefix = '' } = options || {};
       let { url } = requestConfig;
-      url = `${routePrefix}${url}`;
       if (params) {
         url = addUrlParams(url, params);
       }
@@ -122,6 +129,7 @@ const createApi = <T extends string>(
           ...requestConfig,
           url,
         },
+        routePrefix,
         customOption,
       );
     };

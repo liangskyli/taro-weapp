@@ -123,6 +123,6 @@ describe('测试 side-pop-up 组件', () => {
       </SidePopUp>,
     );
 
-    expect(wrapper.getByTestId('scroll-view').innerHTML).toBe('<div>自定义内容</div>');
+    expect(wrapper.getByTestId('scroll-view').children[0].innerHTML).toBe('<div>自定义内容</div>');
   });
 });

@@ -1,15 +1,12 @@
-const simpleStringify = (
-  params: Partial<Record<string, string>> = {},
-  encode: ((str: string) => string) | null = encodeURIComponent,
-) => {
+const simpleStringify = (params: Record<string, string | number>) => {
   const result = Object.entries(params)
     .filter(([, value]) => !!value)
-    .map(([key, value]) => `${key}=${encode ? encode(value as string) : value}`)
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
     .join('&');
   return result;
 };
 
-export const addUrlParams = (url: string, params: Record<string, string>) => {
+export const addUrlParams = (url: string, params: Record<string, string | number>) => {
   const result = `${url}${url.includes('?') ? '&' : '?'}${simpleStringify(params)}`;
   return result;
 };

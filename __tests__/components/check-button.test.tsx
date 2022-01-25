@@ -4,8 +4,6 @@ import CheckButton from '@/components/check-button';
 describe('测试 check-button 组件 ', () => {
   test('check-button 组件 1:', () => {
     let checked = false;
-    render(<div />);
-    expect(checked).toBeFalsy();
     const wrapper = render(<CheckButton checked={checked} className="mb24" />);
 
     expect(wrapper.getByTestId('check-button')).toHaveClass('mb24');
