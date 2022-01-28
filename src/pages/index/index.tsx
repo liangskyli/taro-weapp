@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 import { AtButton } from 'taro-ui';
 import { useMultipleTrigger } from '@/utils/hooks';
 import logoImg from '@/assets/hook.png';
+import type { Columns } from '@/components/table';
+import Table from '@/components/table';
 import ChangeEnv from './components/change-env';
 
 import styles from './index.module.less';
@@ -54,6 +56,74 @@ const Index = () => {
     setIsShowChangeEnv(false);
   };
 
+  const columns: Columns = [
+    {
+      dataIndex: 'name',
+      title: 'title',
+      align: 'left',
+      fixed: true,
+    },
+    {
+      dataIndex: 'name1',
+      title: 'title1',
+      subTitle: 'subTitle1',
+    },
+    {
+      dataIndex: 'name2',
+      title: 'title2',
+    },
+    {
+      dataIndex: 'name3',
+      title: 'title3',
+    },
+    {
+      dataIndex: 'name4',
+      title: 'title4',
+      width: '200rpx',
+    },
+    {
+      dataIndex: 'name5',
+      title: 'title5',
+      width: '200rpx',
+    },
+  ];
+  const dataSource = [
+    {
+      name: '合计',
+      name1: '10',
+      name2: '20',
+      name3: '30',
+      name4: '400',
+      name5: '500',
+    },
+    {
+      name: '类别',
+      name1: '101',
+      name2: '20',
+      name3: '30',
+      name4: '400',
+      name5: '500',
+      children: [
+        {
+          name: '类别1',
+          name1: '102',
+          name2: '20',
+          name3: '30',
+          name4: '400',
+          name5: '500',
+        },
+        {
+          name: '类别2',
+          name1: '103',
+          name2: '20',
+          name3: '30',
+          name4: '400',
+          name5: '500',
+        },
+      ],
+    },
+  ];
+
   return (
     <View className={`${styles.wrapper} safe-bottom`}>
       <Image className={styles.logo} src={logoImg} onClick={onClickLogo} />
@@ -67,6 +137,7 @@ const Index = () => {
       <AtButton className={styles.button} onClick={getAjaxData}>
         taro ui button
       </AtButton>
+      <Table columns={columns} dataSource={dataSource} />
     </View>
   );
 };

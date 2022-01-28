@@ -1,0 +1,76 @@
+.scroll-area {
+  width: 100%;
+}
+
+.table {
+  .wrap {
+    display: flex;
+
+    .item {
+      height: 100%;
+      width: 180px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+
+      &:first-child {
+        padding-left: 40px;
+      }
+
+      &-fixed {
+        position: sticky;
+        left: 0;
+      }
+
+      /* &-fixed::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: -1px;
+        width: 20px;
+        transform: translate(100%);
+        transition: box-shadow 0.3s;
+        content: '';
+        pointer-events: none;
+        box-shadow: inset 10px 0 8px -8px #00000026;
+      } */
+    }
+  }
+
+  .head {
+    display: flex;
+    align-items: center;
+    height: 88px;
+
+    .item-has-sub {
+      flex-direction: column;
+    }
+  }
+
+  .content {
+    .row {
+      display: flex;
+      align-items: center;
+      height: 88px;
+      background: #fff;
+
+      &-bg {
+        .item {
+          background: #f0f2f5;
+
+          .item-first {
+            display: flex;
+            justify-content: unset;
+            align-items: center;
+
+            .sanjiao-icon {
+              left: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
