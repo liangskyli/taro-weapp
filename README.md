@@ -2,7 +2,7 @@
 
 基于 Taro 的 小程序 脚手架
 
-> Taro-cli version: Taro v3.4.0
+> Taro-cli version: Taro v3.4.1
 
 ## 主要功能
 
