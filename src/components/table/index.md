@@ -23,3 +23,12 @@
 | align           | 对齐方式                   | `'left' \| 'right' \| 'center'`    | -  |
 | render          | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据       | `(text, record) => JSX.Element`       | -  |
 | fixed           | 列是否固定，目前只支持第一列  | `boolean`       | -  |
+
+
+## DataSourceItem 属性
+
+| 属性            | 说明              | 类型                                 | 默认值          |
+|---------------|-----------------|------------------------------------|--------------|
+| isFold        | 是否折叠（只支持一级折叠结构） | `Columns`                          | false        |
+| children      | 子项数据            | `Omit<DataSourceItem, 'children'  \| 'isFold'>[]` | -     |
+| [key: string] | 数据项             | `any`                              | -            |

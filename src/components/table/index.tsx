@@ -17,7 +17,7 @@ type Column = {
 export type Columns = Column[];
 
 type DataSourceItem = {
-  /* 是否折叠 */
+  /* 是否折叠（只支持一级折叠结构） */
   isFold?: boolean;
   /* 子项数据 */
   children?: Omit<DataSourceItem, 'children' | 'isFold'>[];
@@ -114,15 +114,17 @@ const Table: (props: SidePopUpProps) => JSX.Element = (props) => {
               return (
                 <>
                   <View
+                    data-testid={`${index}-content-onCollapse`}
                     className={`${styles.row} border-b ${
                       haveChildren(item) ? styles['row-bg'] : ''
                     }`}
                     key={index}
-                    onClick={() => onCollapse(item)}
+                    onClick={haveChildren(item) ? () => onCollapse(item) : undefined}
                   >
                     {columns.map((column, columnIndex) => {
                       return (
                         <View
+                          data-testid={`${index}-${columnIndex}-content`}
                           className={`${styles.item} ${column.fixed ? styles['item-fixed'] : ''} `}
                           key={column.dataIndex}
                           style={{
@@ -143,6 +145,7 @@ const Table: (props: SidePopUpProps) => JSX.Element = (props) => {
                             {columns.map((column, columnIndex) => {
                               return (
                                 <View
+                                  data-testid={`${index}-${columnIndex}-${childrenIndex}-content-children`}
                                   className={`${styles.item} ${
                                     column.fixed ? styles['item-fixed'] : ''
                                   } `}
