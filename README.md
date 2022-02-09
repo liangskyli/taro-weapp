@@ -44,9 +44,10 @@ yarn build:weapp
 
 
 ## 目录结构
+
 - 目录和文件名都用小写英文，单词间用中横线分隔)
 
-
+```
     ├── __test__                    // 单元测试
     ├── dist/                       // 微信小程序编译结果目录
     ├── config/                     // Taro 配置目录
@@ -92,7 +93,7 @@ yarn build:weapp
     ├── project.config.json         // 微信小程序项目配置
     ├── tsconfig.json               // typescript配置文件
     └── yarn.lock                   // yarn lock锁定文件
-
+```
 
 ## 项目版本升级
 
