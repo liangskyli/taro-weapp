@@ -1,9 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { View, Button, Image } from '@tarojs/components';
 import { useNavigationBar, useModal, useToast } from 'taro-hooks';
 import { useDispatch } from 'react-redux';
 import { AtButton } from 'taro-ui';
+import Taro, { redirectTo } from '@tarojs/taro';
 import { useMultipleTrigger } from '@/utils/hooks';
+import { addUrlParams } from '@/utils/common';
 import logoImg from '@/assets/hook.png';
 import type { Columns } from '@/components/table';
 import Table from '@/components/table';
@@ -124,6 +126,39 @@ const Index = () => {
     },
   ];
 
+  const redirectToWebview = (url: string, params?: { hideHomeButton?: '0' | '1' }) => {
+    redirectTo({
+      url: addUrlParams('/pages/web-view/index', { url, ...params }),
+      fail(err) {
+        console.error('跳转webview失败', err);
+      },
+    });
+  };
+
+  const goWebView = () => {
+    redirectToWebview('https://www.baidu.com/', { hideHomeButton: '1' });
+  };
+
+  useEffect(() => {
+    try {
+      const params = Taro.getStorageSync('webviewParams');
+
+      if (params) {
+        const webviewUrl = decodeURIComponent(params.url || '');
+        if (webviewUrl) {
+          const expireTimeStamp = 1000 * 10;
+          if (+new Date() - params.time < expireTimeStamp) {
+            redirectToWebview(webviewUrl, { hideHomeButton: params.hideHomeButton });
+          } else {
+            Taro.removeStorageSync('webviewParams');
+          }
+        }
+      }
+    } catch (e) {
+      // Do something when catch error
+    }
+  }, []);
+
   return (
     <View className={`${styles.wrapper} safe-bottom`}>
       <Image className={styles.logo} src={logoImg} onClick={onClickLogo} />
@@ -138,6 +173,9 @@ const Index = () => {
         taro ui button
       </AtButton>
       <Table columns={columns} dataSource={dataSource} />
+      <AtButton className={styles.button} onClick={goWebView}>
+        go webview
+      </AtButton>
     </View>
   );
 };
