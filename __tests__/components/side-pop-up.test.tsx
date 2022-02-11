@@ -43,12 +43,12 @@ describe('测试 side-pop-up 组件', () => {
         onSelectedClick={onSelectedClick}
       />,
     );
-    expect(wrapper.getByTestId('taro-ui-AtDrawer').textContent).toBe('AtDrawer:show:true');
     expect(wrapper.getByTestId('title').textContent).toBe('请选择');
     expect(wrapper.getByTestId('scroll-view').textContent).toBe('name1name2name3');
   });
 
   test('side-pop-up 组件 列表数据,自定义属性及事件"', () => {
+    jest.useFakeTimers();
     const wrapper = render(
       <SidePopUp
         title="标题"
@@ -61,20 +61,11 @@ describe('测试 side-pop-up 组件', () => {
       />,
     );
 
-    expect(wrapper.getByTestId('taro-ui-AtDrawer').textContent).toBe('AtDrawer:show:true');
     expect(wrapper.getByTestId('title').textContent).toBe('标题');
 
     // 列表数据绑定验证
-    pageHouseTypeList.map((item, index) => {
-      expect(wrapper.getByTestId(`AtList-item-${item.id}`).textContent).toBe(item.name);
-      if (pageHouseTypeList.length - 1 === index) {
-        expect(wrapper.getByTestId(`AtList-item-${item.id}`)).toHaveClass('border-b');
-        expect(wrapper.getByTestId(`AtList-item-box-${item.id}`)).not.toHaveClass('border-b');
-      } else {
-        expect(wrapper.getByTestId(`AtList-item-${item.id}`)).not.toHaveClass('border-b');
-        expect(wrapper.getByTestId(`AtList-item-box-${item.id}`)).toHaveClass('border-b');
-      }
-
+    pageHouseTypeList.map((item) => {
+      expect(wrapper.getByTestId(`list-item-${item.id}`).textContent).toBe(item.name);
       return item;
     });
 
@@ -85,7 +76,7 @@ describe('测试 side-pop-up 组件', () => {
 
     // 选择事件验证
     isOpen = true;
-    wrapper.getByTestId(`AtList-item-${pageHouseTypeList[1].id}`).click();
+    wrapper.getByTestId(`list-item-${pageHouseTypeList[1].id}`).click();
     expect(selectedId).toBe(pageHouseTypeList[1].id);
     expect(isOpen).toBeFalsy();
 
@@ -112,9 +103,8 @@ describe('测试 side-pop-up 组件', () => {
         closePopUp={closePopUp}
       />,
     );
-    expect(wrapper.getByTestId('taro-ui-AtDrawer').textContent).toBe('AtDrawer:show:false');
     // onSelectedClick不传不报错
-    wrapper.getByTestId(`AtList-item-${pageHouseTypeList[1].id}`).click();
+    wrapper.getByTestId(`list-item-${pageHouseTypeList[1].id}`).click();
 
     // 自定义内容
     wrapper.rerender(
@@ -123,6 +113,6 @@ describe('测试 side-pop-up 组件', () => {
       </SidePopUp>,
     );
 
-    expect(wrapper.getByTestId('scroll-view').children[0].innerHTML).toBe('<div>自定义内容</div>');
+    expect(wrapper.getByTestId('scroll-view').children[0].outerHTML).toBe('<div>自定义内容</div>');
   });
 });

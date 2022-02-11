@@ -1,13 +1,8 @@
-.side-pop-up {
-  :global {
-    .at-drawer__content {
-      width: 670px;
-    }
+@import '../../styles/variable';
 
-    .at-list::after {
-      border: none;
-    }
-  }
+.side-pop-up {
+  width: 670px;
+  height: 100vh;
 
   .box {
     display: flex;
@@ -29,16 +24,17 @@
 
     .list {
       .item {
-        background: #fff;
-        padding-left: 40px;
+        --cell-line-height: 46px;
+        --cell-border-color: @color-border;
+        padding: 20px 30px 20px 40px;
 
-        &.item-hover {
-          background: #ddd;
+        &::after {
+          right: 0;
         }
 
-        .box {
-          padding: 20px 30px 20px 0;
-          min-height: 88px;
+        &:last-child::after {
+          display: block;
+          left: 0;
         }
       }
     }

@@ -1,6 +1,6 @@
 import { ScrollView, View } from '@tarojs/components';
 import { useEffect, useState } from 'react';
-import { AtIcon } from 'taro-ui';
+import Icon from '@/components/icon';
 
 import styles from './index.module.less';
 
@@ -60,18 +60,16 @@ const Table: (props: SidePopUpProps) => JSX.Element = (props) => {
         html = (
           <View className={styles['item-first']}>
             {item.isFold ? (
-              <AtIcon
+              <Icon
                 className={`${styles['sanjiao-icon']} pos-a`}
-                prefixClass="icon"
-                value="sanjiao_zhankai"
+                name="sanjiao_zhankai"
                 size="12"
                 color="#666"
               />
             ) : (
-              <AtIcon
+              <Icon
                 className={`${styles['sanjiao-icon']} pos-a`}
-                prefixClass="icon"
-                value="sanjiao_shouqi"
+                name="sanjiao_shouqi"
                 size="12"
                 color="#666"
               />

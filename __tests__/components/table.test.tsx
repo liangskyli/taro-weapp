@@ -75,7 +75,6 @@ describe('测试 Table 组件 ', () => {
       },
     ];
     const wrapper = render(<Table columns={columns} dataSource={dataSource} />);
-    wrapper.debug();
 
     expect((wrapper.getByText('title').parentElement as HTMLElement).outerHTML).toBe(
       '<taro-view-core class="item  item-fixed " style="justify-content: left;"><taro-view-core>title</taro-view-core></taro-view-core>',

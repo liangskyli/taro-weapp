@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { View, Button, Image } from '@tarojs/components';
+import { View, Image } from '@tarojs/components';
 import { useNavigationBar, useModal, useToast } from 'taro-hooks';
 import { useDispatch } from 'react-redux';
-import { AtButton } from 'taro-ui';
+import { Button, SafeArea } from '@taroify/core';
 import Taro, { redirectTo } from '@tarojs/taro';
 import { useMultipleTrigger } from '@/utils/hooks';
 import { addUrlParams } from '@/utils/common';
@@ -160,23 +160,30 @@ const Index = () => {
   }, []);
 
   return (
-    <View className={`${styles.wrapper} safe-bottom`}>
-      <Image className={styles.logo} src={logoImg} onClick={onClickLogo} />
-      <ChangeEnv isOpen={isShowChangeEnv} onClose={onClose} />
-      <Button className={styles.button} onClick={() => setTitle('Taro Hooks Nice!')}>
-        设置标题
-      </Button>
-      <Button className={styles.button} onClick={handleModal}>
-        使用Modal
-      </Button>
-      <AtButton className={styles.button} onClick={getAjaxData}>
-        taro ui button
-      </AtButton>
-      <Table columns={columns} dataSource={dataSource} />
-      <AtButton className={styles.button} onClick={goWebView}>
-        go webview
-      </AtButton>
-    </View>
+    <>
+      <View className={styles.wrapper}>
+        <Image className={styles.logo} src={logoImg} onClick={onClickLogo} />
+        <ChangeEnv isOpen={isShowChangeEnv} onClose={onClose} />
+        <Button
+          className={styles.button}
+          color="primary"
+          onClick={() => setTitle('Taro Hooks Nice!')}
+        >
+          设置标题
+        </Button>
+        <Button className={styles.button} onClick={handleModal}>
+          使用Modal
+        </Button>
+        <Button className={styles.button} onClick={getAjaxData}>
+          taroify button
+        </Button>
+        <Table columns={columns} dataSource={dataSource} />
+        <Button className={styles.button} onClick={goWebView}>
+          go webview
+        </Button>
+      </View>
+      <SafeArea position="bottom" />
+    </>
   );
 };
 

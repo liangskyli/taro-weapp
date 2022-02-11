@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { View } from '@tarojs/components';
-import { AtIcon } from 'taro-ui';
+import Icon from '@/components/icon';
 
 import styles from './index.module.less';
 
@@ -18,10 +18,9 @@ const CheckButton = memo(
       <View data-testid="check-button" className={`${styles['check-button']} ${className}`}>
         <View className={`${styles['css-icon-check']} pos-r ${checked ? '' : styles.hide}`}>
           {showIcon && (
-            <AtIcon
+            <Icon
               className={`${styles['css-icon-check-white']} pos-r ${checked ? '' : styles.hide}`}
-              prefixClass="icon"
-              value="check-gou"
+              name="check-gou"
               size="10"
               color="#fff"
             />

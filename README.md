@@ -110,20 +110,20 @@ yarn
 
 ## 已配置的依赖
 
-| 名称    | 库名称                                                                   | 用途                                  |
-| ------- | ------------------------------------------------------------------------ | ------------------------------------- |
-| Taro    | [@tarojs/taro](https://taro-docs.jd.com/taro/docs/README/index.html)     | 基础库                                |
-| Taro-UI | [taro-ui](https://taro-ui.jd.com/#/docs/introduction)                    | 样式库                                |
+| 名称      | 库名称                                                                      | 用途                           |
+|---------|--------------------------------------------------------------------------|------------------------------|
+| Taro    | [@tarojs/taro](https://taro-docs.jd.com/taro/docs/README/index.html)     | 基础库                          |
+| Taroify | [taroify](https://taroify.gitee.io/taroify.com/introduce/)               | UI库                          |
 | Dva     | [dva-core](https://dvajs.com/guide/)                                     | 基于 redux 和 redux-saga 的数据流方案 |
-| Immer   | [dva-immer](https://github.com/dvajs/dva/tree/master/packages/dva-immer) | immer 不可变结构                      |
+| Immer   | [dva-immer](https://github.com/dvajs/dva/tree/master/packages/dva-immer) | immer 不可变结构                  |
 
 ## 开发环境的依赖
 
-| 名称             | 库名称                                                             | 用途              |
-| --------------- | ----------------------------------------------------------------- | ----------------- |
-| Typescript      | [typescript](https://www.typescriptlang.org/docs)                 | JS 超集语言        |
-| ESLint          | [eslint](https://eslint.org/docs/user-guide/getting-started)      | 规范检查           |
-| stylelint       | [stylelint](https://stylelint.io/)                                | 规范检查           |
-| Prettier        | [prettier](https://prettier.io/docs/en/index.html)                | 代码格式化         |
-| commitlint      | [commitlint](https://github.com/conventional-changelog/commitlint)| Git commit 规范化 |
-| @liangskyli/mock| [@liangskyli/mock](https://github.com/liangskyli/mock)            | http mock服务     |
+| 名称               | 库名称                                                                | 用途             |
+|------------------|--------------------------------------------------------------------|----------------|
+| Typescript       | [typescript](https://www.typescriptlang.org/docs)                  | JS 超集语言        |
+| ESLint           | [eslint](https://eslint.org/docs/user-guide/getting-started)       | 规范检查           |
+| stylelint        | [stylelint](https://stylelint.io/)                                 | 规范检查           |
+| Prettier         | [prettier](https://prettier.io/docs/en/index.html)                 | 代码格式化          |
+| commitlint       | [commitlint](https://github.com/conventional-changelog/commitlint) | Git commit 规范化 |
+| @liangskyli/mock | [@liangskyli/mock](https://github.com/liangskyli/mock)             | http mock服务    |

@@ -51,6 +51,7 @@
   "author": "",
   "dependencies": {
     "@babel/runtime": "^7.17.2",
+    "@taroify/core": "^0.0.26-alpha.6",
     "@tarojs/cli": "3.4.1",
     "@tarojs/components": "3.4.1",
     "@tarojs/plugin-framework-react": "3.4.1",
@@ -63,8 +64,7 @@
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "taro-hooks": "1.5.2",
-    "taro-ui": "^3.1.0-beta.2"
+    "taro-hooks": "1.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.2",

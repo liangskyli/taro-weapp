@@ -1,6 +1,7 @@
 import { ScrollView, View } from '@tarojs/components';
-import { AtDrawer, AtIcon, AtList } from 'taro-ui';
+import { Cell, SafeArea, Popup } from '@taroify/core';
 import CheckButton from '@/components/check-button';
+import Icon from '@/components/icon';
 
 import styles from './index.module.less';
 
@@ -14,6 +15,7 @@ export type SidePopUpProps<T = string> = {
   onSelectedClick?: (item: Item<T>) => void;
   closePopUp: () => void;
   className?: string;
+  isMaskClose?: boolean;
   children?: JSX.Element;
 };
 const SidePopUp: <T>(props: SidePopUpProps<T>) => JSX.Element = (props) => {
@@ -25,54 +27,54 @@ const SidePopUp: <T>(props: SidePopUpProps<T>) => JSX.Element = (props) => {
     closePopUp,
     onSelectedClick,
     className = '',
+    isMaskClose = true,
     children,
   } = props;
 
   return (
-    <AtDrawer
+    <Popup
       className={`${styles['side-pop-up']} ${className}`}
-      show={isOpen}
+      open={isOpen}
       onClose={closePopUp}
-      right
+      placement="right"
     >
+      <Popup.Backdrop closeable={isMaskClose} />
       <View className={`${styles.head} ${styles.box}`}>
         <View data-testid="title" className="fz28 color-888">
           {title}
         </View>
-        <AtIcon prefixClass="icon" value="close" size="20" color="#666" onClick={closePopUp} />
+        <Icon name="close" size="20" color="#666" onClick={closePopUp} />
       </View>
       <ScrollView data-testid="scroll-view" className={styles['list-scroll-area']} scrollY>
-        <View className="safe-bottom">
+        <>
           {list ? (
             <>
-              <AtList className={styles.list}>
-                {list.map((item, index) => {
+              <View className={styles.list}>
+                {list.map((item) => {
                   return (
-                    <View
+                    <Cell
                       key={item.id as any}
-                      data-testid={`AtList-item-${item.id}`}
-                      className={`${styles.item} ${index === list.length - 1 ? 'border-b' : ''}`}
-                      hoverClass={styles['item-hover']}
+                      data-testid={`list-item-${item.id}`}
+                      className={`${styles.item}`}
+                      clickable
                       onClick={() => onSelectedClick?.(item)}
                     >
-                      <View
-                        data-testid={`AtList-item-box-${item.id}`}
-                        className={`${styles.box} ${index === list.length - 1 ? '' : 'border-b'}`}
-                      >
+                      <View className={styles.box}>
                         <View className="fz32">{item.name}</View>
                         <CheckButton checked={selectedId === item.id} />
                       </View>
-                    </View>
+                    </Cell>
                   );
                 })}
-              </AtList>
+              </View>
             </>
           ) : (
             children
           )}
-        </View>
+          <SafeArea position="bottom" />
+        </>
       </ScrollView>
-    </AtDrawer>
+    </Popup>
   );
 };
 export default SidePopUp;
