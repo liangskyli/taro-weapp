@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { View, Image } from '@tarojs/components';
-import { useNavigationBar, useModal, useToast } from 'taro-hooks';
+import { useNavigationBar, useModal } from 'taro-hooks';
 import { useDispatch } from 'react-redux';
-import { Button, SafeArea } from '@taroify/core';
+import { Button, Dialog, Notify, Toast } from '@taroify/core';
 import Taro, { redirectTo } from '@tarojs/taro';
 import { useMultipleTrigger } from '@/utils/hooks';
 import { addUrlParams } from '@/utils/common';
@@ -28,13 +28,21 @@ const Index = () => {
     confirmText: '支持一下',
     mask: true,
   });
-  const [showToast] = useToast({ mask: true, icon: 'none' });
 
   const handleModal = useCallback(() => {
     show({ content: '不如给一个star⭐️!' }).then(() => {
-      showToast({ title: '点击了支持!' });
+      Toast.open('点击了支持!');
     });
-  }, [show, showToast]);
+  }, [show]);
+
+  const handleModal2 = () => {
+    Dialog.alert({
+      message: 'taroify alert',
+      onConfirm: () => {
+        Notify.open('点击了确定!');
+      },
+    });
+  };
 
   const getAjaxData = async () => {
     const data = await dispatch<any>({
@@ -129,14 +137,17 @@ const Index = () => {
   const redirectToWebview = (url: string, params?: { hideHomeButton?: '0' | '1' }) => {
     redirectTo({
       url: addUrlParams('/pages/web-view/index', { url, ...params }),
-      fail(err) {
-        console.error('跳转webview失败', err);
-      },
     });
   };
 
   const goWebView = () => {
-    redirectToWebview('https://www.baidu.com/', { hideHomeButton: '1' });
+    redirectToWebview('https://www.baidu.com/', { hideHomeButton: '0' });
+  };
+
+  const goSecondPage = () => {
+    Taro.navigateTo({
+      url: '/pages/second/index',
+    });
   };
 
   useEffect(() => {
@@ -146,7 +157,7 @@ const Index = () => {
       if (params) {
         const webviewUrl = decodeURIComponent(params.url || '');
         if (webviewUrl) {
-          const expireTimeStamp = 1000 * 10;
+          const expireTimeStamp = 1000 * 0;
           if (+new Date() - params.time < expireTimeStamp) {
             redirectToWebview(webviewUrl, { hideHomeButton: params.hideHomeButton });
           } else {
@@ -174,6 +185,9 @@ const Index = () => {
         <Button className={styles.button} onClick={handleModal}>
           使用Modal
         </Button>
+        <Button className={styles.button} onClick={handleModal2}>
+          使用 taroify Modal
+        </Button>
         <Button className={styles.button} onClick={getAjaxData}>
           taroify button
         </Button>
@@ -181,8 +195,10 @@ const Index = () => {
         <Button className={styles.button} onClick={goWebView}>
           go webview
         </Button>
+        <Button className={styles.button} onClick={goSecondPage}>
+          second page
+        </Button>
       </View>
-      <SafeArea position="bottom" />
     </>
   );
 };

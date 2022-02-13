@@ -2083,6 +2083,11 @@
     swiper "6.8.0"
     weui "^1.1.2"
 
+"@tarojs/extend@^3.4.1":
+  version "3.4.1"
+  resolved "https://registry.npmmirror.com/@tarojs/extend/-/extend-3.4.1.tgz#b01d8c74e904cfc9ae1456469ffd0d13af413d45"
+  integrity sha512-y/KjmDi8CTbXFRJccMbL5nAd3wTi0gLlo9SqdZwQfgHz7JEJKtsl5rgzwCgdYAFzXzsn/K75QBEen/+xcMJdxQ==
+
 "@tarojs/helper@3.4.1":
   version "3.4.1"
   resolved "https://registry.npmmirror.com/@tarojs/helper/download/@tarojs/helper-3.4.1.tgz#e6641e9119a210703cf1c2712a5043c85595fd9b"
@@ -2200,6 +2205,11 @@
     "@tarojs/runtime" "3.4.1"
     "@tarojs/shared" "3.4.1"
     webpack "4.46.0"
+
+"@tarojs/plugin-html@^3.4.1":
+  version "3.4.1"
+  resolved "https://registry.npmmirror.com/@tarojs/plugin-html/-/plugin-html-3.4.1.tgz#0afb83d5cf1cb490c1afcc4c892dd569691c3f52"
+  integrity sha512-BEqQQ8iPE5Epk0MGcFKgzvoGDNRwM8ssXFwQW0kdCXH3QDf/F7dx5YnIPg+nW9xnSGcA6xLYJlskcc0oxxKNGw==
 
 "@tarojs/plugin-platform-alipay@3.4.1":
   version "3.4.1"
