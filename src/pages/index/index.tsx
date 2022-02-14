@@ -157,7 +157,7 @@ const Index = () => {
       if (params) {
         const webviewUrl = decodeURIComponent(params.url || '');
         if (webviewUrl) {
-          const expireTimeStamp = 1000 * 0;
+          const expireTimeStamp = 1000 * 10;
           if (+new Date() - params.time < expireTimeStamp) {
             redirectToWebview(webviewUrl, { hideHomeButton: params.hideHomeButton });
           } else {

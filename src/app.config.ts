@@ -6,4 +6,10 @@ export default {
     navigationBarTitleText: 'WeChat',
     navigationBarTextStyle: 'black',
   },
+  subpackages: [
+    {
+      root: 'subpackages/package1',
+      pages: ['pages/index/index'],
+    },
+  ],
 };

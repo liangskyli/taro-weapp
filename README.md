@@ -48,7 +48,7 @@ yarn build:weapp
 - 目录和文件名都用小写英文，单词间用中横线分隔)
 
 ```
-    ├── __test__                    // 单元测试
+    ├── __tests__                   // 单元测试
     ├── dist/                       // 微信小程序编译结果目录
     ├── config/                     // Taro 配置目录
     │   ├── dev.js                  // 开发时配置
@@ -63,7 +63,7 @@ yarn build:weapp
     │   ├── models/                
     │   │   ├── global.ts           // 全局 models
     │   │   └── index.ts            // 入口
-    │   ├── pages                   // 页面文件目录
+    │   ├── pages/                  // 页面文件目录
     │   │   └── index
     │   │       ├── components/     // 页面组件
     │   │       ├── model.ts        // 业务逻辑 (Dva model)
@@ -73,6 +73,10 @@ yarn build:weapp
     │   ├── services/               // 全局模块请求
     │   ├── store/                  // dva 存储
     │   ├── style/                  // 全局样式通用函数功能集合
+    │   ├── subpackages/            // 分包页面文件目录  
+    │   │   ├── package1/           // 分包1
+    │   │   │   ├── components/     // 分包公共组件   
+    │   │   │   └── pages/          // 分包页面文件目录  
     │   ├── utils/                  // 常用工具类
     │   ├── app.less                // 全局样式
     │   ├── app.tsx                 // 入口文件
