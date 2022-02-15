@@ -99,21 +99,21 @@ describe('测试 Table 组件 ', () => {
     expect(wrapper.getByTestId('0-0-content').innerHTML).toBe('合计');
     expect(
       wrapper.getByTestId('1-0-content').innerHTML.indexOf('icon-sanjiao_shouqi') > -1,
+    ).toBeFalsy();
+    act(() => {
+      wrapper.getByTestId('1-content-onCollapse').click();
+    });
+    expect(
+      wrapper.getByTestId('1-0-content').innerHTML.indexOf('icon-sanjiao_shouqi') > -1,
     ).toBeTruthy();
+    expect(
+      wrapper.getByTestId('1-0-content').innerHTML.indexOf('icon-sanjiao_zhankai') > -1,
+    ).toBeFalsy();
     act(() => {
       wrapper.getByTestId('1-content-onCollapse').click();
     });
     expect(
       wrapper.getByTestId('1-0-content').innerHTML.indexOf('icon-sanjiao_shouqi') > -1,
     ).toBeFalsy();
-    expect(
-      wrapper.getByTestId('1-0-content').innerHTML.indexOf('icon-sanjiao_zhankai') > -1,
-    ).toBeTruthy();
-    act(() => {
-      wrapper.getByTestId('1-content-onCollapse').click();
-    });
-    expect(
-      wrapper.getByTestId('1-0-content').innerHTML.indexOf('icon-sanjiao_shouqi') > -1,
-    ).toBeTruthy();
   });
 });

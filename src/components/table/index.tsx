@@ -62,14 +62,14 @@ const Table: (props: SidePopUpProps) => JSX.Element = (props) => {
             {item.isFold ? (
               <Icon
                 className={`${styles['sanjiao-icon']} pos-a`}
-                name="sanjiao_zhankai"
+                name="sanjiao_shouqi"
                 size="12"
                 color="#666"
               />
             ) : (
               <Icon
                 className={`${styles['sanjiao-icon']} pos-a`}
-                name="sanjiao_shouqi"
+                name="sanjiao_zhankai"
                 size="12"
                 color="#666"
               />
