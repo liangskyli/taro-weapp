@@ -11,7 +11,7 @@ const config = {
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
-  plugins: ['@tarojs/plugin-html'],
+  plugins: ['@tarojs/plugin-html', '@taro-hooks/plugin-react'],
   defineConstants: {},
   alias: {
     '@': resolve(__dirname, '..', 'src'),
